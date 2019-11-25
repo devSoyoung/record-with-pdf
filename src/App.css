@@ -38,3 +38,6 @@ code {
   text-align: left;
 }
 
+.hide {
+  display: none;
+}

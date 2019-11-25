@@ -19,6 +19,7 @@ function ImageList({ images, imageIndex, changeImageIndex }) {
             alt="슬라이드 이미지"
             key={`slide_image_${idx}`}
             onClick={() => changeImageIndex(idx)}
+            title={`슬라이드 ${idx + 1}`}
           />
         ))
       ) : ''}

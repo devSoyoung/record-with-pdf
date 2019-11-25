@@ -1,3 +1,21 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  monospace;
+}
+
+#root, .App, main, .viewer, .ant-layout {
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -6,17 +24,17 @@
   height: 40vmin;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .App-link {
   color: #09d3ac;
 }
+
+.ant-layout-header.app-header {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: #3e4149;
+  text-align: left;
+}
+

@@ -1,0 +1,26 @@
+.viewer {
+  padding: 20px;
+}
+
+.ant-layout-sider.viewer__side {
+  background: #fff;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.viewer__side_image {
+  width: 110px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.viewer__side_image:hover {
+  opacity: 0.5;
+  transition: 0.2s;
+}
+
+.viewer__side_image.focus {
+  border: 1px solid lightcoral;
+}

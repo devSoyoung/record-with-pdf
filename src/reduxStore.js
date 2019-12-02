@@ -43,16 +43,16 @@ const appReducer = (state = initialState, action) => {
       };
 
     case actionTypes.CHANGE_IMAGE_INDEX:
-      if (state.isRecord) {
-        return {
-          ...state,
-          imageIndex: action.payload,
-          pageTracker: {
-            ...state.pageTracker,
-            [state.currentRecordTime]: action.payload,
-          },
-        }
-      }
+      // if (state.isRecord) {
+      //   return {
+      //     ...state,
+      //     imageIndex: action.payload,
+      //     pageTracker: {
+      //       ...state.pageTracker,
+      //       [state.currentRecordTime]: action.payload,
+      //     },
+      //   }
+      // }
       return {
         ...state,
         imageIndex: action.payload,
@@ -78,7 +78,7 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isPlaying: true,
-        imageIndex: state.pageTracker[0]
+        imageIndex: state.pageTracker[state.currentPlayTime],
       };
 
     case actionTypes.STOP_PLAY:
@@ -91,13 +91,17 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPlayTime: action.payload,
-        imageIndex: state.pageTracker[action.payload] || state.imageIndex,
+        imageIndex: state.pageTracker[action.payload],
       };
 
     case actionTypes.INCREASE_RECORD_TIME:
       return {
         ...state,
         currentRecordTime: state.currentRecordTime + 1,
+        pageTracker: {
+          ...state.pageTracker,
+          [state.currentRecordTime + 1]: state.imageIndex,
+        }
       };
 
     default:

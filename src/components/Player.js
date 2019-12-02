@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { actionCreators } from "../reduxStore";
+import { actionCreators } from '../reduxStore';
+
+import './Player.css';
 
 let playTimeInterval;
 
-function Player({ startPlay, stopPlay, audio, increaseTime, currentPlayTime }) {
+function Player({ startPlay, stopPlay, audio, setPlayTime }) {
+  const audioRefContainer = useRef(null);
+
   function onPlay() {
     startPlay();
     playTimeInterval = setInterval(() => {
-      increaseTime();
+      setPlayTime(Math.floor(audioRefContainer.current.currentTime));
     }, 1000);
   }
 
@@ -20,6 +24,7 @@ function Player({ startPlay, stopPlay, audio, increaseTime, currentPlayTime }) {
   return (
     <>
       <audio
+        ref={audioRefContainer}
         id="wavSource"
         className="audio-player"
         onPlay={onPlay}
@@ -33,14 +38,13 @@ function Player({ startPlay, stopPlay, audio, increaseTime, currentPlayTime }) {
 }
 
 const mapStateToProps = state => ({
-  isPlaying: state.isPlaying,
-  currentPlayTime: state.currentPlayTime,
+
 });
 
 const mapDispatchToProps = dispatch => ({
   startPlay: () => dispatch(actionCreators.startPlay()),
   stopPlay: () => dispatch(actionCreators.stopPlay()),
-  increaseTime: () => dispatch(actionCreators.increaseTime()),
+  setPlayTime: currentTime => dispatch(actionCreators.setPlayTime(currentTime)),
 });
 
 export default connect(

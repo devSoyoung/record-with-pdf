@@ -39,11 +39,13 @@ function Recorder({ isRecord, isPlaying, currentRecordTime, startRecord, stopRec
 
       {audio && <Player audio={audio} />}
 
-      {!isRecord && !isPlaying ? (
+      {!isRecord ? (
         <Button
           type="primary" ghost
           className="record-button"
-          onClick={() => handleClickRecordButton(true)}>
+          onClick={() => handleClickRecordButton(true)}
+          disabled={isPlaying}
+        >
           녹음하기
         </Button>
       ) : (

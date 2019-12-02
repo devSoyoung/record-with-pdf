@@ -12,16 +12,6 @@
   font-weight: 400;
 }
 
-.audio-player {
-  position: absolute;
-  z-index: 10000;
-  top: 20px;
-  right: 150px;
-  width: 230px;
-  height: 25px;
-}
-
-
 canvas.sound-wave {
   height: 25px;
   border-radius: 150px;

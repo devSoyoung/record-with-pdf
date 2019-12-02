@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Upload, Icon, message, Button } from 'antd';
 import Convert from './Converter';
 
@@ -9,7 +10,10 @@ const uploaderProps = {
   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
 };
 
-function Uploader() {
+/**
+ * @return {null}
+ */
+function Uploader({ images }) {
   const [file, setFile] = useState();
 
   const onUpload = (info) => {
@@ -26,6 +30,10 @@ function Uploader() {
     }
   };
 
+  if (images && images.length) {
+    return null;
+  }
+
   return (
     <>
       <Upload {...uploaderProps} onChange={onUpload}>
@@ -38,4 +46,14 @@ function Uploader() {
   );
 }
 
-export default Uploader;
+const mapStateToProps = state => ({
+  images: state.images,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Uploader);

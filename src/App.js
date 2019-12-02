@@ -5,7 +5,7 @@ import reduxStore from './reduxStore';
 
 import Uploader from './components/Uploader';
 import Viewer from './components/Viewer';
-import Recorder from './components/Recorder';
+import RecordController from './components/RecordController';
 import ImageList from './components/ImageList';
 
 import { Layout } from 'antd';
@@ -19,7 +19,7 @@ function App() {
       <div className="App">
         <Header className="app-header">
           Record with PDF
-          <Recorder/>
+          <RecordController/>
         </Header>
         <Layout>
           <ImageList/>

@@ -6,8 +6,8 @@
 }
 
 .time-info {
-  float: right;
-  padding-right: 20px;
+  position: absolute;
+  right: 135px;
   font-size: 15px;
   font-weight: 400;
 }
@@ -19,5 +19,5 @@ canvas.sound-wave {
   width: 230px;
   position: absolute;
   top: 20px;
-  right: 200px;
+  right: 230px;
 }

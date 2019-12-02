@@ -1,29 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { ReactMic } from 'react-mic';
-import { Button } from 'antd';
 import Player from './Player';
 
 import './Recorder.css';
 import { actionCreators } from "../reduxStore";
 
-let recordInterval;
-
-function Recorder({ isRecord, isPlaying, currentRecordTime, startRecord, stopRecord, startPlay, stopPlay }) {
-  const [audio, setAudio] = useState();
-  const handleClickRecordButton = isStartRecord => {
-    if (isStartRecord) {
-      startRecord();
-      recordInterval = setInterval(() => {
-        console.log('녹음 시간 증가하는 중');
-      }, 1000);
-      setAudio();
-    } else {
-      clearInterval(recordInterval);
-      stopRecord();
-    }
-  };
-
+function Recorder({ isRecord, currentRecordTime, audio, setAudio }) {
   function onStop(recordedBlob) {
     setAudio(recordedBlob.blobURL);
   }
@@ -39,23 +22,6 @@ function Recorder({ isRecord, isPlaying, currentRecordTime, startRecord, stopRec
 
       {audio && <Player audio={audio} />}
 
-      {!isRecord ? (
-        <Button
-          type="primary" ghost
-          className="record-button"
-          onClick={() => handleClickRecordButton(true)}
-          disabled={isPlaying}
-        >
-          녹음하기
-        </Button>
-      ) : (
-        <Button
-          type="danger" ghost
-          className="record-button"
-          onClick={() => handleClickRecordButton(false)}>
-          정지하기
-        </Button>
-      )}
       {isRecord && (
         <span className="time-info">
           {`${Math.floor(currentRecordTime / 60)} 분 ${currentRecordTime % 60} 초`}
@@ -67,7 +33,6 @@ function Recorder({ isRecord, isPlaying, currentRecordTime, startRecord, stopRec
 
 const mapStateToProps = state => ({
   isRecord: state.isRecord,
-  isPlaying: state.isPlaying,
   currentRecordTime: state.currentRecordTime,
 });
 

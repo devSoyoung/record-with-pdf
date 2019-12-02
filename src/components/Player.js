@@ -38,7 +38,6 @@ function Player({ startPlay, stopPlay, audio, setPlayTime }) {
 }
 
 const mapStateToProps = state => ({
-
 });
 
 const mapDispatchToProps = dispatch => ({

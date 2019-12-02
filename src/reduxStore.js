@@ -13,6 +13,7 @@ export const actionTypes = {
   START_PLAY: 'START_PLAY',
   STOP_PLAY: 'STOP_PLAY',
   SET_PLAY_TIME: 'SET_PLAY_TIME',
+  INCREASE_RECORD_TIME: 'INCREASE_RECORD_TIME',
 };
 
 export const actionCreators = {
@@ -24,6 +25,7 @@ export const actionCreators = {
   startPlay: makeActionCreator(actionTypes.START_PLAY),
   stopPlay: makeActionCreator(actionTypes.STOP_PLAY),
   setPlayTime: makeActionCreator(actionTypes.SET_PLAY_TIME),
+  increaseRecordTime: makeActionCreator(actionTypes.INCREASE_RECORD_TIME),
 };
 
 const appReducer = (state = initialState, action) => {
@@ -89,6 +91,12 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPlayTime: action.payload,
+      };
+
+    case actionTypes.INCREASE_RECORD_TIME:
+      return {
+        ...state,
+        currentRecordTime: state.currentRecordTime + 1,
       };
 
     default:

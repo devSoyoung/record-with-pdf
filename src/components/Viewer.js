@@ -7,6 +7,10 @@ import { actionCreators } from '../reduxStore';
 import './Viewer.css';
 
 function Viewer({ images, imageIndex, changeImageIndex }) {
+  if (!images.length) {
+    return '';
+  }
+
   return (
     <div className="viewer">
       <div className="viewer__button">

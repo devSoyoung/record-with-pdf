@@ -1,5 +1,4 @@
 import { createStore } from 'redux';
-import images from './images/pdf_sample';
 
 function makeActionCreator(actionType) {
   return payload => ({ type: actionType, payload });
@@ -74,7 +73,7 @@ const appReducer = (state = initialState, action) => {
 };
 
 const initialState = {
-  images: images,
+  images: [],
   imageIndex: 0,
   isRecord: false,
   pageTracker: [],

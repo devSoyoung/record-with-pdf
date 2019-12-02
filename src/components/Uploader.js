@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Upload, Icon, message, Button } from 'antd';
-import Convert from'./Converter';
+import Convert from './Converter';
 
 const uploaderProps = {
   name: 'file',
@@ -29,7 +29,7 @@ function Uploader() {
           <Icon type="upload" />PDF 파일 업로드
         </Button>
       </Upload>
-      <Convert > </Convert>
+      <Convert> </Convert>
     </span>
   );
 }

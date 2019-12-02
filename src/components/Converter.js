@@ -1,35 +1,35 @@
-import React, {Component} from 'react';
-import {PDFtoIMG} from 'react-pdf-to-image';
+import React from 'react';
+import { connect } from 'react-redux';
+import { PDFtoIMG } from 'react-pdf-to-image';
 import file from './aaa.pdf';
+import { actionCreators } from '../reduxStore';
 
-const Converter =()=> 
+function Converter({ setImages }) {
+  return (
     <div>
-        <PDFtoIMG file={file}>
-            {({pages}) => {
-                if (!pages.length) return 'Loading...';
-                var pagelist=[];
-                pages.map((page, index)=>
-                    pagelist.push(page)
-                );
-                console.log(pagelist);
-                return pagelist;
-            }}
-        </PDFtoIMG>
+      <PDFtoIMG file={file}>
+        {({ pages }) => {
+          if (!pages || !pages.length) {
+            return '';
+          }
+          setImages(pages);
+          return '';
+        }}
+      </PDFtoIMG>
     </div>
+  );
+}
 
-export default Converter;
-/*
-const Converter =()=> 
-    <div>
-        <PDFtoIMG file={file}>
-            {({pages}) => {
-                if (!pages.length) return 'Loading...';
-                return pages.map((page, index)=>
-                    <a href={page} download={index}>저장</a>
-                );
-            }}
-        </PDFtoIMG>
-    </div>
+const mapStateToProps = state => ({
+  images: state.images,
+  imageIndex: state.imageIndex,
+});
 
-export default Converter;
-*/
+const mapDispatchToProps = dispatch => ({
+  setImages: images => dispatch(actionCreators.setImages(images)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Converter);

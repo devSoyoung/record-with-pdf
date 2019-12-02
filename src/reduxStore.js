@@ -47,10 +47,10 @@ const appReducer = (state = initialState, action) => {
         return {
           ...state,
           imageIndex: action.payload,
-          pageTracker: state.pageTracker.concat({
-            page: action.payload,
-            time: state.currentRecordTime,
-          }),
+          pageTracker: {
+            ...state.pageTracker,
+            [state.currentRecordTime]: action.payload,
+          },
         }
       }
       return {
@@ -63,10 +63,9 @@ const appReducer = (state = initialState, action) => {
         ...state,
         isRecord: true,
         currentRecordTime: 0,
-        pageTracker: [{
-          page: state.imageIndex,
-          time: 0,
-        }],
+        pageTracker: {
+          [state.currentRecordTime]: state.imageIndex,
+        },
       };
 
     case actionTypes.STOP_RECORD:
@@ -79,6 +78,7 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isPlaying: true,
+        imageIndex: state.pageTracker[0]
       };
 
     case actionTypes.STOP_PLAY:
@@ -91,6 +91,7 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPlayTime: action.payload,
+        imageIndex: state.pageTracker[action.payload] || state.imageIndex,
       };
 
     case actionTypes.INCREASE_RECORD_TIME:
@@ -108,7 +109,7 @@ const initialState = {
   images: [],
   imageIndex: 0,
   isRecord: false,
-  pageTracker: [],
+  pageTracker: {},
   currentRecordTime: 0,
   currentPlayTime: 0,
   isPlaying: false,

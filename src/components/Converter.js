@@ -4,7 +4,7 @@ import { PDFtoIMG } from 'react-pdf-to-image';
 import file from './aaa.pdf';
 import { actionCreators } from '../reduxStore';
 
-function Converter({ setImages }) {
+function Converter({ setImages, setFile }) {
   return (
     <div>
       <PDFtoIMG file={file}>
@@ -13,6 +13,7 @@ function Converter({ setImages }) {
             return '';
           }
           setImages(pages);
+          setFile('');
           return '';
         }}
       </PDFtoIMG>

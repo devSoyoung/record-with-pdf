@@ -10,6 +10,10 @@ export const actionTypes = {
   CHANGE_IMAGE_INDEX: 'CHANGE_IMAGE_INDEX',
   START_RECORD: 'START_RECORD',
   STOP_RECORD: 'STOP_RECORD',
+  START_PLAY: 'START_PLAY',
+  STOP_PLAY: 'STOP_PLAY',
+  INCREASE_PLAY_TIME: 'INCREASE_PLAY_TIME',
+  RESET_PLAY_TIME: 'RESET_PLAY_TIME',
 };
 
 export const actionCreators = {
@@ -18,6 +22,10 @@ export const actionCreators = {
   changeImageIndex: makeActionCreator(actionTypes.CHANGE_IMAGE_INDEX),
   startRecord: makeActionCreator(actionTypes.START_RECORD),
   stopRecord: makeActionCreator(actionTypes.STOP_RECORD),
+  startPlay: makeActionCreator(actionTypes.START_PLAY),
+  stopPlay: makeActionCreator(actionTypes.STOP_PLAY),
+  increaseTime: makeActionCreator(actionTypes.INCREASE_PLAY_TIME),
+  resetTime: makeActionCreator(actionTypes.RESET_PLAY_TIME),
 };
 
 const appReducer = (state = initialState, action) => {
@@ -41,7 +49,7 @@ const appReducer = (state = initialState, action) => {
           imageIndex: action.payload,
           pageTracker: state.pageTracker.concat({
             page: action.payload,
-            time: state.currentTime,
+            time: state.currentRecordTime,
           }),
         }
       }
@@ -54,7 +62,7 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isRecord: true,
-        currentTime: 0,
+        currentRecordTime: 0,
         pageTracker: [{
           page: state.imageIndex,
           time: 0,
@@ -67,6 +75,30 @@ const appReducer = (state = initialState, action) => {
         isRecord: false,
       };
 
+    case actionTypes.START_PLAY:
+      return {
+        ...state,
+        isPlaying: true,
+      };
+
+    case actionTypes.STOP_PLAY:
+      return {
+        ...state,
+        isPlaying: false,
+      };
+
+    case actionTypes.INCREASE_PLAY_TIME:
+      return {
+        ...state,
+        currentPlayTime: state.currentPlayTime + 1,
+      };
+
+    case actionTypes.RESET_PLAY_TIME:
+      return {
+        ...state,
+        currentPlayTime: 0,
+      };
+
     default:
       return state;
   }
@@ -77,7 +109,9 @@ const initialState = {
   imageIndex: 0,
   isRecord: false,
   pageTracker: [],
-  currentTime: 0,
+  currentRecordTime: 0,
+  currentPlayTime: 0,
+  isPlaying: false,
 };
 
 

@@ -24,7 +24,6 @@ function App() {
         <Layout>
           <ImageList/>
           <Content>
-            <div>녹음 및 플레이어 영역</div>
             <Uploader/>
             <Viewer/>
           </Content>

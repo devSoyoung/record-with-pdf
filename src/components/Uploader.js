@@ -33,7 +33,7 @@ function Uploader() {
           <Icon type="upload" />파일 업로드
         </Button>
       </Upload>
-      {file ? <Convert /> : ''}
+      {file ? <Convert setFile={setFile} /> : ''}
     </>
   );
 }

@@ -2,19 +2,26 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ReactMic } from 'react-mic';
 import { Button } from 'antd';
+import Player from './Player';
 
 import './Recorder.css';
 import { actionCreators } from "../reduxStore";
 
-function Recorder({ isRecord, currentTime, startRecord, stopRecord}) {
+let recordInterval;
+
+function Recorder({ isRecord, isPlaying, currentRecordTime, startRecord, stopRecord, startPlay, stopPlay }) {
   const [audio, setAudio] = useState();
   const handleClickRecordButton = isStartRecord => {
     if (isStartRecord) {
       startRecord();
+      recordInterval = setInterval(() => {
+        console.log('녹음 시간 증가하는 중');
+      }, 1000);
       setAudio();
-      return;
+    } else {
+      clearInterval(recordInterval);
+      stopRecord();
     }
-    stopRecord();
   };
 
   function onStop(recordedBlob) {
@@ -30,17 +37,9 @@ function Recorder({ isRecord, currentTime, startRecord, stopRecord}) {
         strokeColor="#000000"
         backgroundColor="#FFF" />
 
-      {audio && (
-        <audio
-          id="wavSource"
-          className="audio-player"
-          controls
-        >
-          <source id="audio-source" src={audio} type="audio/webm;codecs=opus" />
-        </audio>
-      )}
+      {audio && <Player audio={audio} />}
 
-      {!isRecord ? (
+      {!isRecord && !isPlaying ? (
         <Button
           type="primary" ghost
           className="record-button"
@@ -57,7 +56,7 @@ function Recorder({ isRecord, currentTime, startRecord, stopRecord}) {
       )}
       {isRecord && (
         <span className="time-info">
-          {`${Math.floor(currentTime / 60)} 분 ${currentTime % 60} 초`}
+          {`${Math.floor(currentRecordTime / 60)} 분 ${currentRecordTime % 60} 초`}
         </span>
       )}
     </span>
@@ -66,7 +65,8 @@ function Recorder({ isRecord, currentTime, startRecord, stopRecord}) {
 
 const mapStateToProps = state => ({
   isRecord: state.isRecord,
-  currentTime: state.currentTime,
+  isPlaying: state.isPlaying,
+  currentRecordTime: state.currentRecordTime,
 });
 
 const mapDispatchToProps = dispatch => ({

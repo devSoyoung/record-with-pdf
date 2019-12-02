@@ -8,7 +8,13 @@ import './ImageList.css';
 
 const { Sider } = Layout;
 
+/**
+ * @return {null}
+ */
 function ImageList({ images, imageIndex, changeImageIndex }) {
+  if (!images || !images.length) {
+    return null;
+  }
   return (
     <Sider width={120} className="viewer__side">
       {images.length ? (

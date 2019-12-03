@@ -50,7 +50,7 @@ function Viewer({ isRecord, images, timeLog, imageIndex, changeImageIndex }) {
         {!isRecord && (
           timeLog
             .filter(log => log.page === imageIndex)
-            .map(log => (<span className="record-time-item">{getTimeFormat(log.time)}</span>))
+            .map(log => (<span className="record-time-item">{getTimeFormat(log.time + 1)}</span>))
         )}
       </div>
       <Memo imageIndex={imageIndex} />

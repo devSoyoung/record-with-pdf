@@ -14,6 +14,7 @@ export const actionTypes = {
   STOP_PLAY: 'STOP_PLAY',
   SET_PLAY_TIME: 'SET_PLAY_TIME',
   INCREASE_RECORD_TIME: 'INCREASE_RECORD_TIME',
+  SAVE_SLIDE_TEXT: 'SAVE_SLIDE_TEXT',
 };
 
 export const actionCreators = {
@@ -26,6 +27,7 @@ export const actionCreators = {
   stopPlay: makeActionCreator(actionTypes.STOP_PLAY),
   setPlayTime: makeActionCreator(actionTypes.SET_PLAY_TIME),
   increaseRecordTime: makeActionCreator(actionTypes.INCREASE_RECORD_TIME),
+  saveSlideText: makeActionCreator(actionTypes.SAVE_SLIDE_TEXT),
 };
 
 const appReducer = (state = initialState, action) => {
@@ -43,16 +45,16 @@ const appReducer = (state = initialState, action) => {
       };
 
     case actionTypes.CHANGE_IMAGE_INDEX:
-      // if (state.isRecord) {
-      //   return {
-      //     ...state,
-      //     imageIndex: action.payload,
-      //     pageTracker: {
-      //       ...state.pageTracker,
-      //       [state.currentRecordTime]: action.payload,
-      //     },
-      //   }
-      // }
+      if (state.isRecord) {
+        return {
+          ...state,
+          imageIndex: action.payload,
+          timeLog: state.timeLog.concat({
+            time: state.currentRecordTime,
+            page: action.payload,
+          }),
+        }
+      }
       return {
         ...state,
         imageIndex: action.payload,
@@ -63,6 +65,12 @@ const appReducer = (state = initialState, action) => {
         ...state,
         isRecord: true,
         currentRecordTime: 0,
+        timeLog: [
+          {
+            time: 0,
+            page: state.imageIndex,
+          }
+        ],
         pageTracker: {
           [state.currentRecordTime]: state.imageIndex,
         },
@@ -104,6 +112,15 @@ const appReducer = (state = initialState, action) => {
         }
       };
 
+    case actionTypes.SAVE_SLIDE_TEXT:
+      return {
+        ...state,
+        slideText: {
+          ...state.slideText,
+          [action.payload.imageIndex]: action.payload.text,
+        }
+      };
+
     default:
       return state;
   }
@@ -114,9 +131,11 @@ const initialState = {
   imageIndex: 0,
   isRecord: false,
   pageTracker: {},
+  timeLog: [],
   currentRecordTime: 0,
   currentPlayTime: 0,
   isPlaying: false,
+  slideText: {},
 };
 
 

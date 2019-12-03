@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Upload, Icon, message, Button } from 'antd';
 import Convert from './Converter';
 
+import './Uploader.css';
+
 const uploaderProps = {
   name: 'file',
   multiple: false,
@@ -35,14 +37,18 @@ function Uploader({ images }) {
   }
 
   return (
-    <>
+    <div className="uploader-area">
+      <div style={{marginBottom: '30px'}}>
+        PDF 파일을 업로드 해 주세요.<br/>
+        파일을 변환한 후 녹음을 시작할 수 있습니다.
+      </div>
       <Upload {...uploaderProps} onChange={onUpload}>
         <Button>
           <Icon type="upload" />파일 업로드
         </Button>
       </Upload>
       {file ? <Convert setFile={setFile} /> : ''}
-    </>
+    </div>
   );
 }
 

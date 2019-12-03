@@ -3,6 +3,7 @@
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .viewer__button {
@@ -14,4 +15,19 @@
   font-size: 13px;
   font-weight: 700;
   color: black;
+}
+
+.record-time {
+  background: white;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  margin-bottom: 20px;
+  padding: 5px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.record-time-item {
+  margin: 0 10px;
+  color: #1890ff;
 }
